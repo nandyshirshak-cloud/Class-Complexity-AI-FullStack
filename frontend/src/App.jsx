@@ -10,84 +10,48 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function analyzeClass() {
-    if (!students || !subjects || !teachers || !classes) {
-      alert("Please enter all class details.");
-      return;
+ async function analyzeClass() {
+  if (!students || !subjects || !teachers || !classes) {
+    alert("Please enter all class details.");
+    return;
+  }
+
+  setLoading(true);
+  setResult(null);
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        students: students,
+        subjects: subjects,
+        teachers: teachers,
+        classes: classes
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error("Backend request failed");
     }
 
-    setLoading(true);
-    setResult(null);
+    const data = await response.json();
 
-    // Small delay to create an AI-analysis effect
-    setTimeout(() => {
-      const s = Number(students);
-      const sub = Number(subjects);
-      const t = Number(teachers);
-      const c = Number(classes);
+    setResult({
+      score: data.score,
+      level: data.level,
+      message: data.message
+    });
 
-      let score = 0;
-
-      // Student calculation
-      if (s > 50) {
-        score += 30;
-      } else if (s > 30) {
-        score += 20;
-      } else {
-        score += 10;
-      }
-
-      // Subject calculation
-      if (sub > 7) {
-        score += 25;
-      } else if (sub > 5) {
-        score += 15;
-      } else {
-        score += 10;
-      }
-
-      // Teacher calculation
-      if (t < 5) {
-        score += 20;
-      } else {
-        score += 10;
-      }
-
-      // Weekly class calculation
-      if (c > 30) {
-        score += 25;
-      } else if (c > 20) {
-        score += 15;
-      } else {
-        score += 10;
-      }
-
-      let level;
-      let message;
-
-      if (score >= 70) {
-        level = "High";
-        message =
-          "The class has high complexity. Consider improving teacher allocation, class scheduling and resource distribution.";
-      } else if (score >= 45) {
-        level = "Medium";
-        message =
-          "The class has moderate complexity. Some improvements in scheduling and resource management may help.";
-      } else {
-        level = "Low";
-        message =
-          "The class has low complexity and appears relatively easy to manage.";
-      }
-
-      setResult({
-        score,
-        level,
-        message
-      });
-
-      setLoading(false);
-    }, 1000);
+  } catch (error) {
+    console.error(error);
+    alert("Cannot connect to the backend. Make sure Flask is running.");
   }
+
+  setLoading(false);
+}
 
   function resetAnalysis() {
     setStudents("");
