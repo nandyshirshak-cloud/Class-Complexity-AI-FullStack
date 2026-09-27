@@ -1,86 +1,91 @@
-# 🤖 Class Complexity AI
+# Class Complexity AI
 
-An AI-powered classroom complexity analysis system developed as a B.Tech student project.
+Class Complexity AI is a lightweight AI/ML-based full-stack application that analyzes student learning data and predicts the complexity level of a subject.
 
-Class Complexity AI analyzes classroom information such as the number of students, subjects, teachers, and weekly classes to estimate the overall complexity of managing the class.
+It uses a Machine Learning Decision Tree model to generate a complexity score, identify important factors, and provide personalized study suggestions.
 
----
+## 🚀 Features
 
-## 📌 Project Overview
-
-Managing a classroom can become difficult when there are many students, subjects, teachers, and classes.
-
-**Class Complexity AI** provides a simple way to analyze these factors and generate a complexity score.
-
-The system provides:
-
-- 📊 Complexity Score
-- 🟢 Low Complexity
-- 🟡 Medium Complexity
-- 🔴 High Complexity
-- 💡 AI-based Recommendation
-- 📋 Class Information Summary
-
----
-
-## ✨ Features
-
-- Simple and user-friendly interface
-- Classroom complexity analysis
-- Complexity score out of 100
-- Low / Medium / High classification
-- AI recommendation
-- Responsive design
-- Animated analysis button
-- Loading animation
-- Reset and analyze another class
-- React frontend
-- Flask backend
+- Student learning data analysis
+- AI/ML-based complexity prediction
+- Complexity score from 0–100
+- Low / Medium / High difficulty prediction
+- Explainable factors affecting complexity
+- Personalized study suggestions
+- Frontend and backend separation
 - REST API
+- SQLite database support
+- Lightweight and suitable for student projects
+- Designed to work on low-resource systems
 
----
+## 🧠 How It Works
 
-## 🛠️ Technologies Used
+1. Student enters learning information.
+2. Frontend sends the data to the Flask backend.
+3. Backend processes the data.
+4. Decision Tree Machine Learning model analyzes the information.
+5. The system calculates a complexity score.
+6. The result is returned to the frontend.
+7. Student receives difficulty level, factors, and study suggestions.
+
+## 📊 Input Data
+
+The system uses:
+
+- Student Name
+- Subject
+- Number of Classes
+- Study Hours
+- Assignment Count
+- Attendance Percentage
+- Previous Marks
+- Number of Difficult Topics
+
+## 🛠️ Technology Stack
 
 ### Frontend
 
-- React.js
-- Vite
-- JavaScript
 - HTML
 - CSS
+- JavaScript
+- Vite
 
 ### Backend
 
 - Python
 - Flask
 - Flask-CORS
+- REST API
 
-### Development Tools
+### Machine Learning
 
-- Visual Studio Code
-- Git
-- GitHub
-- PowerShell
+- Scikit-learn
+- Decision Tree Classifier
 
----
+### Database
 
-## 📂 Project Structure
+- SQLite
+
+## 📁 Project Structure
 
 ```text
 Class-Complexity-AI-FullStack/
 │
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── main.jsx
-│   │
-│   ├── package.json
-│   └── ...
-│
 ├── backend/
-│   └── app.py
+│   ├── app.py
+│   ├── model.py
+│   ├── train_model.py
+│   └── database.db
 │
-├── .gitignore
+├── frontend/
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── src/
+│       ├── main.js
+│       └── style.css
+│
+├── images/
+│   └── cover.png
+│
 └── README.md
